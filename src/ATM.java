@@ -9,11 +9,6 @@ public class ATM {
 	
 	public void deposit(String id, int amt) {
 		map.put(id, amt);
-//		Iterator mapIterator = map.entrySet().iterator();
-//		while (mapIterator.hasNext()) {
-//				
-//		}
-		
 	}
 	
 	
