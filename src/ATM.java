@@ -1,25 +1,44 @@
 import java.util.*;
-
+//Aaron's Code
 public class ATM {
-	HashMap<String, Integer> map;
+	
+	private HashMap<String, Double> list;
 	
 	public ATM() {
-		map = new HashMap<String, Integer>();
+		list = new HashMap<String, Double>();
 	}
 	
-	public void deposit(String id, int amt) {
-		map.put(id, amt);
+	public void deposit(String id, double amt) {
+		Double originalAmt = 0.0;
+		if (list.get(id) != null) {
+			originalAmt = list.get(id);
+		}
+		list.put(id, amt+originalAmt);
 	}
 	
+	public void withdraw(String id, double amt) {
+		double accBalance = list.get(id);
+		if (amt>accBalance) {
+			System.out.println("Error! Not enough money in account!");
+			return;
+		}
+		list.put(id, accBalance-amt);
+	}
 	
-	@Override
-	public String toString() {
-		return "ATM [map=" + map + "]";
+	public String checkBalance(String id) {
+		if (list.get(id) != null) {
+			String output = ("Account " + id + " has a remaining balance of " + list.get(id));
+			return output;
+		}
+		return "Error! Account does not exist.";
 	}
 
-	public static void main (String [] args) {
-		ATM chase = new ATM();
-		chase.deposit("COLINYUAN01", 1000000);
-		System.out.println(chase.toString());
+	public String toString() {
+		String output = "";
+		for (Map.Entry<String, Double> entry : list.entrySet()) {
+			output += entry.getKey() + " " + entry.getValue() + "; ";
+		}
+		return output;
 	}
+	
 }
