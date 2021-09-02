@@ -1,45 +1,48 @@
-import java.util.*;
+mport java.util.HashMap;
 
 public class ATM {
-<<<<<<< Updated upstream
-	HashMap<String, Integer> map;
-	
-=======
-	HashMap<String, Double> map;
->>>>>>> Stashed changes
-	public ATM() {
-		map = new HashMap<String, Integer>();
-	}
-	
-	public void deposit(String id, int amt) {
-		map.put(id, amt);
-	}
-	
-<<<<<<< Updated upstream
-=======
-	public void withdraw(String id, Double amt) {
-		
-		Double balance = map.get(id);
-		if(balance - amt <0) {
-			System.out.println("You have an overwithdrawal of $" + (balance-amt));
-		}
-		else {
-			map.put(id, balance-amt);
-		}
-	}
->>>>>>> Stashed changes
-	
-	@Override
-	public String toString() {
-		return "ATM [map=" + map + "]";
-	}
-<<<<<<< Updated upstream
+	private HashMap <String, Double> database;
 
-	public static void main (String [] args) {
-		ATM chase = new ATM();
-		chase.deposit("COLINYUAN01", 1000000);
-		System.out.println(chase.toString());
+	public  ATM()
+	{
+		database = new HashMap <String, Double> ();
 	}
-=======
->>>>>>> Stashed changes
+
+	public void deposit(String userID, double amount) throws Exception
+	{
+		if (database.containsKey (userID))
+		{
+			double currBalance= database.get(userID);
+			database.replace(userID, currBalance + amount);
+		}
+		else
+		{
+			database.put(userID,amount);
+
+		}
+	}
+
+	public void withdraw (String userID, double amount) throws Exception
+	{
+		double currBalance = database.get(userID);
+		if (amount> currBalance)
+		{
+			throw new Exception();
+		}
+		else
+		{
+			database.replace(userID, currBalance - amount);
+
+		}
+	}
+
+	public double checkBalance (String userID) throws Exception
+	{
+		if (!database.containsKey (userID))
+		{
+			throw new Exception();
+
+		}
+		return database.get(userID);
+	}
 }
